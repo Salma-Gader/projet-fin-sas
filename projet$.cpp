@@ -9,7 +9,7 @@ struct donnesDeProduit{
   char code[15];
   char nom[30];
   int quantite;
-  int prix;
+  float prix;
 };
 
 //declaration des variables globales
@@ -27,7 +27,7 @@ void ajouteProduit (){
     printf("entrer la quantite:\n");
     scanf("%d",&produit[stock].quantite);
     printf("entrer le prix:\n");
-    scanf("%d",&produit[stock].prix);
+    scanf("%f",&produit[stock].prix);
     stock++;
 }   
 //declaration de fonction menu pricipale
@@ -48,12 +48,14 @@ int menuPrincipale(){
 	scanf("%d",&choix);
 	return choix;
 
-}
+} 
+//fonction d'affichage
 void afficherProduit(){
 	for(int i=0; i<stock; i++){
-		printf("%s %s %d %d\n",produit[i].code,produit[i].nom,produit[i].quantite,produit[i].prix);
+		printf("%s %s %d %f\n",produit[i].code,produit[i].nom,produit[i].quantite,produit[i].prix);
 	}
 }
+//fonction de trie
 void trieProduit(){
     
 
@@ -96,9 +98,34 @@ void trieProduit(){
             default:
             break;
             
-            
+
+		}        
     }
-}
+//fonction d'achat
+void achaterProduit(struct donnesDeProduit produit[]){
+	    char code1[15];
+	    int Q,index;
+        printf("entrer le code de produit");
+        scanf("%s",code1);
+        //printf("entrer le quntite de produit");
+        //scanf("%d",&Q);
+        
+	for(int i=0;i<stock;i++){
+	   if(strcmp(produit[i].code,code1) == 0){
+	   	index=i;
+	   	printf("%s   |\t%s    \t|\t Prix = %fDH   |  quantite  = %d  \n",produit[index].code,produit[index].nom,produit[index].prix+0.15,produit[index].quantite );
+	    
+		break;	
+	   }
+	   printf("entrer le quntite de produit");
+       scanf("%d",&Q);
+       for(int i=0;i<stock;i++){
+       	produit[i].quantite -= Q;
+	   } 
+	
+	}
+}    
+
 int main(){
     int n;
 	//fonction d'affichage de menu
@@ -128,7 +155,8 @@ int main(){
             break;
         
         case 4:
-            printf("case 4");
+        achaterProduit(produit);
+            
             break;
         
         case 5:
