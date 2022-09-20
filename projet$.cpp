@@ -1,6 +1,9 @@
 #include <stdio.h>
+#include <string.h> 
 
 //creation des strectures
+
+
 struct donnesDeProduit{
     
   char code[15];
@@ -21,7 +24,7 @@ void ajouteProduit (){
     scanf("%s",produit[stock].code);
     printf("entrer le nom:\n");
     scanf("%s",produit[stock].nom);
-    printf("entrer le quantite:\n");
+    printf("entrer la quantite:\n");
     scanf("%d",&produit[stock].quantite);
     printf("entrer le prix:\n");
     scanf("%d",&produit[stock].prix);
@@ -51,35 +54,51 @@ void afficherProduit(){
 		printf("%s %s %d %d\n",produit[i].code,produit[i].nom,produit[i].quantite,produit[i].prix);
 	}
 }
-void triePrix(){
+void trieProduit(){
     
 
-    printf("1-lister tous les produits selon l’ordre décroissant du prix");
+    printf("1-lister tous les produits selon l’ordre décroissant du prix\n");
     printf("2-lister selon l'ordre alphabetique croissant\n");
     printf("entrer votre choix");
+    int i,j;
+    struct donnesDeProduit tmp;
+    struct donnesDeProduit temp;
     scanf("%d",&nmbList);
         switch(nmbList) {
             case 1:
-            int i,j,tmp;
+            
             for(i=0;i<stock;i++){
             for(j=i+1;j<stock;j++){
             	 if(produit[i].prix<produit[j].prix){
-            tmp=produit[i].prix ;
-            produit[i].prix= produit[j].prix;
-            produit[j].prix = tmp;}
+            tmp=produit[i] ;
+            produit[i]= produit[j];
+            produit[j] = tmp;}
                 
 			}
 		}
 		afficherProduit();
 			break;
             case 2:
-            printf("dd");
+            for(i=0;i<stock;i++)
+			{
+	            for(j=0;j<stock;j++)
+				{
+		            if(strcmp(produit[i].nom,produit[j].nom)<0)
+					{
+			            temp =produit[i];
+			            produit[i]= produit[j];
+			            produit[j]= temp;
+					}
+	          	}
+           }
+           afficherProduit();
             break;
             default:
             break;
-            }
+            
             
     }
+}
 int main(){
     int n;
 	//fonction d'affichage de menu
@@ -89,39 +108,38 @@ int main(){
 	n = menuPrincipale();   
 	switch(n)
     {
-        case 1:{
+        case 1:
             ajouteProduit();
             break;
             
-        }
-         case 2:
+        
+        case 2:
             printf("entrer le nombre de produits que vous voules Ajouter\n");
             scanf("%d",&nmbProduit);
             for (int i=0;i<nmbProduit;i++){
-                ajouteProduit ();
-        }
-            
-        break;
+            ajouteProduit ();
+										  }
+            break;
         
-         case 3 :
+        case 3 :
             
-           triePrix();
+            trieProduit();
                 
-           break;
+            break;
         
-         case 4:
+        case 4:
             printf("case 4");
-             break;
+            break;
         
-         case 5:
+        case 5:
             printf("case 5");
-             break;
+            break;
         
-         case 6:
+        case 6:
             printf("case 6");
-             break;
+            break;
         
-         case 7:
+        case 7:
             
             printf("le total des prix des produits vendus en journée courante:\n");
             printf("la moyenne des prix des produits vendus en journée courante:\n");
