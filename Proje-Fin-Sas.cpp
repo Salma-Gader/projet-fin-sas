@@ -14,6 +14,10 @@ struct donnesDeProduit{
   float prix;
   
 };
+struct produitAcheter{
+	int Q;
+	float prix;
+};
 
 //declaration des variables globales
 int nmbProduit,nmbList,NbRecherche;
@@ -216,6 +220,10 @@ void supprimerProduits(){
 	   }	
 } 
 }
+//Statistique de vente
+void StatistiqueVente(){
+	printf("le total des prix des produits vendus en journee courante:\n");	
+}
 int main(){
     int n;
 		
@@ -275,7 +283,7 @@ int main(){
         	supprimerProduits();
         	break;
         case 9:
-            
+            StatistiqueVente();
             printf("le total des prix des produits vendus en journee courante:\n");
             printf("la moyenne des prix des produits vendus en journee courante:\n");
             printf("le Max des prix des produits vendus en journee courante:\n");
