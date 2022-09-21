@@ -14,16 +14,19 @@ struct donnesDeProduit{
   float prix;
   
 };
-struct produitAcheter{
-	int Q;
-	float prix;
-};
+/*struct donnes{
+	float prixVendu;
+	int Quantite;
+	char date;
+};*/
 
 //declaration des variables globales
 int nmbProduit,nmbList,NbRecherche;
 struct donnesDeProduit produit[100];
-static int stock=0;
-
+int stock=0;
+int stockVendu=0;
+float prixTotale=0;
+//struct donnes produitVendu[100]; 
 //creation des fonctions
 void ajouteProduit (){
     
@@ -133,14 +136,24 @@ void achaterProduit(struct donnesDeProduit produit[]){
        scanf("%d",&Q);
        
        for(int i=0;i<stock;i++){
-        produit[index].quantite -= Q;
+       	if(Q<produit[index].quantite){
+       	produit[index].quantite -= Q;
+       	//float prixTotal=produit[index].prix*Q;
+       	//produitVendu[stockVendu].prixVendu=prixTotal;
         printf("la quantite: %d\n",produit[index].quantite);
         float prixTTC = produit[index].prix + (produit[index].prix*0.15);
         time_t t;
     	time(&t);
-    	printf("le PrixTTC : %.2f\nla date dachat : %s",prixTTC,ctime(&t));        
+    	printf("le PrixTTC : %.2f\nla date dachat : %s",prixTTC,ctime(&t));
+    	//stockVendu++;
+		   }else{
+		   	printf("**quantite pas disponible**\n");
+		   }
+         
 	   } 
+	   	//prixTotale=(prixTTC*Q)+prixTotale;
 	}
+	
 }    
 
 //fonction de recherche par Code
@@ -222,7 +235,9 @@ void supprimerProduits(){
 }
 //Statistique de vente
 void StatistiqueVente(){
-	printf("le total des prix des produits vendus en journee courante:\n");	
+	
+   //printf("le total des prix des produits vendus en journee courante:\n%.2f",produitVendu[100].prixVendu);
+		
 }
 int main(){
     int n;
