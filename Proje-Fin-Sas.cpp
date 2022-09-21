@@ -33,7 +33,7 @@ void ajouteProduit (){
     scanf("%f",&produit[stock].prix);
     stock++;
 }   
-//declaration de fonction menu pricipale
+// fonction menu pricipale
 int menuPrincipale(){
     int choix;
     printf("========= menu principal ====================\n\n");
@@ -56,10 +56,12 @@ int menuPrincipale(){
 } 
 //fonction d'affichage
 void afficherProduit(){
-	
+		printf("\tle code:|\tle nom:|\tla quantite:|\tle prix:|\ttprixTTC:|\n");
+		
 	for(int i=0; i<stock; i++){
 		float prixTTC = produit[i].prix + (produit[i].prix*0.15);
-		printf("le code:%s\nle nom:%s\nla quantite:%d\nle prix:%.2f\nprixTTC:%.2f\n",produit[i].code,produit[i].nom,produit[i].quantite,produit[i].prix,prixTTC);
+		printf("\t   %s   |\t   %s  |\t    %d      |\t  %.2f  |\t  %.2f  |\n",produit[i].code,produit[i].nom,produit[i].quantite,produit[i].prix,prixTTC);
+		printf("====================\n");
 	}
 }
 //fonction de trie
@@ -146,8 +148,8 @@ void rechercheParCode(){
    for(int i=0;i<stock;i++){
    	
 	   if(strcmp(produit[i].code,code1) == 0){
-	    printf("le produit existe" );
-	   }else printf("le produit nexiste pas" );
+	    printf("**le produit existe**\n" );
+	   }else printf("**le produit nexiste pas**\n" );
     }
 	   
 }
@@ -162,17 +164,61 @@ void rechercheParQuantite(){
    for(int i=0;i<stock;i++){
    	
 	   if(produit[i].quantite == Quantite){
-	    printf("le produit existe\n" );
-	   }else printf("le produit nexiste pas\n" );
+	    printf("**le produit existe**\n" );
+	   }else printf("**le produit nexiste pas**\n" );
     }
 	   
 }
 
-
+//foction Etat du stock
+void EtatDuStock(){
+	  int test=0;
+	printf("les produits dont la quantite est inferieure a 3:\n");
+	   for(int i=0;i<stock;i++){
+   	   
+	   if(produit[i].quantite<3){
+	    		printf("le code:%s\nle nom:%s\nla quantite:%d\nle prix:%.2f\nprixTTC:%.2f\n",produit[i].code,produit[i].nom,produit[i].quantite,produit[i].prix);
+	    		test=1;
+	    	
+	   }
+   }
+   if(test==0){
+   	printf("Quantite pas disponible");
+   }
+}
+//fonction Alimentation de stock:
+void alimentationStock(){
+	char code1[15];
+    int Q,index;
+    printf("entrer le code de produit\n");
+    scanf("%s",code1);
+    printf("entrer la quantite de produit:\n");
+    scanf("%d",&Q);    
+        
+	for(int i=0;i<stock;i++){
+	   if(strcmp(produit[i].code,code1) == 0){
+	    printf("%s   |\t%s    \t|\t Prix = %.2fDH   |  quantite  = %d  \n",produit[i].code,produit[i].nom,produit[i].prix,produit[i].quantite );
+	    produit[i].quantite += Q;
+	    printf("%s   |\t%s    \t|\t Prix = %.2fDH   |  quantite  = %d  \n",produit[i].code,produit[i].nom,produit[i].prix,produit[i].quantite );
+	   }
+}
+}
+//Supprimer les produits 
+void supprimerProduits(){
+	char code1[20];
+   printf("entrer le code de produit :\n");
+   scanf("%s",code1);
+   for(int i=0;i<stock;i++){
+   	
+	   if(strcmp(produit[i].code,code1) == 0){
+	    produit[i]=produit[i+1];
+	    stock--;
+	   }	
+} 
+}
 int main(){
     int n;
-	//fonction d'affichage de menu
-	
+		
 	while(1) {
 	    
 	n = menuPrincipale();   
@@ -218,10 +264,17 @@ int main(){
 			break;
         
         case 6:
-            printf("case 6");
+            EtatDuStock();
             break;
         
-        case 7:
+		case 7:
+		alimentationStock();	
+		break;
+		    
+        case 8:
+        	supprimerProduits();
+        	break;
+        case 9:
             
             printf("le total des prix des produits vendus en journee courante:\n");
             printf("la moyenne des prix des produits vendus en journee courante:\n");
