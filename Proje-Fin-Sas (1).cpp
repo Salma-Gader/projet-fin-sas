@@ -1,4 +1,3 @@
-
 #include <time.h> 
 #include <stdio.h>
 #include <string.h> 
@@ -50,7 +49,7 @@ int menuPrincipale(){
 	printf("=== 3-Lister tous les produits 		  ===\n");
 	printf("=== 4-Acheter produit 			  ===\n");
 	printf("=== 5-Rechercher des produits 		  ===\n");
-	printf("=== 6-Etat du stock		  ===\n");
+	printf("=== 6-Etat du stock		          ===\n");
 	printf("=== 7-Alimenter le stock		  ===\n");
 	printf("=== 8-suprimer des produits 		  ===\n");
 	printf("=== 9-Statistique de vente 		  ===\n\n");
@@ -84,18 +83,18 @@ void trieProduit(){
     scanf("%d",&nmbList);
         switch(nmbList) {
             case 1:
-            
-            for(i=0;i<stock;i++){
-            for(j=i+1;j<stock;j++){
-            	 if(produit[i].prix<produit[j].prix){
-            tmp=produit[i] ;
-            produit[i]= produit[j];
-            produit[j] = tmp;}
-                
-			}
-		}
-		afficherProduit();
-			break;
+	            for(i=0;i<stock;i++){
+		            for(j=i+1;j<stock;j++){
+		            	if(produit[i].prix<produit[j].prix)
+						{
+				            tmp=produit[i] ;
+				            produit[i]= produit[j];
+				            produit[j] = tmp;
+						}
+					}
+				}
+				afficherProduit();
+				break;
             case 2:
             for(i=0;i<stock;i++)
 			{
@@ -122,7 +121,7 @@ void achaterProduit(struct donnesDeProduit produit[]){
 	
     char code1[15];
     int Q,index;
-    printf("entrer le code de produit");
+    printf("entrer le code de produit :\n");
     scanf("%s",code1);
         
         
@@ -132,29 +131,26 @@ void achaterProduit(struct donnesDeProduit produit[]){
 	   	printf("%s   |\t%s    \t|\t Prix = %.2fDH   |  quantite  = %d  \n",produit[index].code,produit[index].nom,produit[index].prix,produit[index].quantite );
 	   }
 	   
-	   printf("entrer la quantite de produit:\n");
+	   printf("entrer la quantite que vous voulez:\n");
        scanf("%d",&Q);
        
        for(int i=0;i<stock;i++){
-       	if(Q<produit[index].quantite){
-       	produit[index].quantite -= Q;
-       	//float prixTotal=produit[index].prix*Q;
-       	//produitVendu[stockVendu].prixVendu=prixTotal;
-        printf("la quantite: %d\n",produit[index].quantite);
-        float prixTTC = produit[index].prix + (produit[index].prix*0.15);
-        time_t t;
-    	time(&t);
-    	printf("le PrixTTC : %.2f\nla date dachat : %s",prixTTC,ctime(&t));
-    	//stockVendu++;
-		   }else{
-		   	printf("**quantite pas disponible**\n");
+       	
+       	if(Q<=produit[index].quantite){
+	       	produit[index].quantite -= Q;
+	       	//float prixTotal=produit[index].prix*Q;
+	       	//produitVendu[stockVendu].prixVendu=prixTotal;
+	        printf("la quantite: %d\n",produit[index].quantite);
+	        float prixTTC = produit[index].prix + (produit[index].prix*0.15);
+	        time_t t;
+	    	time(&t);
+	    	printf("le PrixTTC : %.2f\nla date dachat : %s",prixTTC,ctime(&t));
+	    	//stockVendu++;
 		   }
-         
 	   } 
-	   	//prixTotale=(prixTTC*Q)+prixTotale;
 	}
-	
-}    
+}
+  
 
 //fonction de recherche par Code
 void rechercheParCode(){
@@ -234,11 +230,11 @@ void supprimerProduits(){
 } 
 }
 //Statistique de vente
-void StatistiqueVente(){
+//void StatistiqueVente(){
 	
    //printf("le total des prix des produits vendus en journee courante:\n%.2f",produitVendu[100].prixVendu);
 		
-}
+//}
 int main(){
     int n;
 		
@@ -298,7 +294,7 @@ int main(){
         	supprimerProduits();
         	break;
         case 9:
-            StatistiqueVente();
+            //StatistiqueVente();
             printf("le total des prix des produits vendus en journee courante:\n");
             printf("la moyenne des prix des produits vendus en journee courante:\n");
             printf("le Max des prix des produits vendus en journee courante:\n");
@@ -313,3 +309,4 @@ int main(){
 
 	return 0;
 }
+
